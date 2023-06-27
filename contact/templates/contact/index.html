@@ -1,7 +1,7 @@
 {% include 'global/base.html' %}
 {% block content %}
 <main class="content">
-    {% if contacts %}
+    {% if page_obj %}
         <div class="responsive-table">
             <table class="contacts-table">
                 <caption class="table-caption">
@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for contact in contacts %}
+                    {% for contact in page_obj %}
                         <tr class="table-row">
                             <td class="table-cel">
                                 <a class="table-link" href="{% url 'contact:contact' contact.id %}">
@@ -40,5 +40,6 @@
         </h1>
     </div>
     {% endif %}
+    {% include 'global/partials/_pagination.html' %}
 </main>
 {% endblock content %}
