@@ -1,0 +1,25 @@
+<header class="header">
+    <h1 class="header-heading">
+        <a href="{% url 'contact:index' %}" class="header-link">
+            Agenda
+        </a>
+    </h1>
+    <nav class="menu">
+        <ul class="menu-list">
+            <li class="item"><a href="" class="menu-link">Create</a></li>
+            <li class="item"><a href="" class="menu-link">Update</a></li>
+        </ul>
+    </nav>
+    <div class="search">
+        <form action="{% url 'contact:search' %}" method="GET">
+            <input 
+                type="search" 
+                class="search-input" 
+                placeholder="search"
+                id="search"
+                name="q"
+                value="{{ search_value }}"
+            >
+        </form>
+    </div>
+</header>
