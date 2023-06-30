@@ -13,7 +13,7 @@ def index(request):
     paginator = Paginator(contacts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'title': title, 'page_obj': page_obj}
+    context = {'title': title, 'page_obj': page_obj, 'contacts': contacts}
     return render(request, 'contact/index.html', context=context)
 
 

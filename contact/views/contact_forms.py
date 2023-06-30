@@ -1,28 +1,30 @@
 # type:ignore
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from contact.forms import ContactForms
 from django.urls import reverse
+from contact.models import Contact
 
 
 def create(request):
     form_action = reverse('contact:create')
     if request.method == 'POST':
-        form = ContactForms(data=request.POST)
+        form = ContactForms(request.POST, request.FILES)
         context = {
             'forms': form,
             'form_action': form_action
         }
         if form.is_valid():
-            form.save()
-            return redirect('contact:update')
+            contact = form.save()
+            return redirect('contact:update', contact_id=contact.pk)
         return render(
             request,
             'contact/create.html',
             context=context
         )
     context = {
-        'forms': ContactForms()
+        'forms': ContactForms(),
+        'form_action': form_action
     }
     return render(
         request,
@@ -32,9 +34,10 @@ def create(request):
 
 
 def update(request, contact_id):
-    form_action = reverse('contact:update')
+    contact = get_object_or_404(Contact, pk=contact_id, show=True)
+    form_action = reverse('contact:update', args=(contact_id,))
     if request.method == 'POST':
-        form = ContactForms(data=request.POST)
+        form = ContactForms(request.POST, request.FILES, instance=contact)
         context = {
             'forms': form,
             'form_action': form_action
@@ -48,10 +51,31 @@ def update(request, contact_id):
             context=context
         )
     context = {
-        'forms': ContactForms()
+        'forms': ContactForms(instance=contact),
+        'form_action': form_action
     }
     return render(
         request,
         'contact/create.html',
         context=context
+    )
+
+
+def delete(request, contact_id):
+    contact = get_object_or_404(
+        Contact, pk=contact_id, show=True
+    )
+    confirmation = request.POST.get('confirmation', 'no')
+
+    if confirmation == 'yes':
+        contact.delete()
+        return redirect('contact:index')
+
+    return render(
+        request,
+        'contact/contact.html',
+        {
+            'contact': contact,
+            'confirmation': confirmation,
+        }
     )

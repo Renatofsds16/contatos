@@ -3,7 +3,7 @@
   <div class="form-wrapper">
     <h2>Contact</h2>
     <form 
-      action="{{form_action}}"
+      action="{{ form_action }}"
       method="POST"
       enctype="multipart/form-data"
     >
@@ -14,6 +14,9 @@
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
             {{ field.errors }}
+            {% if field.name == 'picture' and field.value.url %}
+              <img src="{{ field.value.url }}" alt="img">
+            {% endif %}
           </div>
         {% endfor %}
       </div>

@@ -4,6 +4,13 @@ from contact.models import Contact
 
 
 class ContactForms(forms.ModelForm):
+    picture = forms.ImageField(
+        widget=forms.FileInput(
+            attrs={
+                'accept': 'image/*',
+            }
+        )
+    )
     first_name = forms.CharField(
         widget=forms.TextInput(
             attrs={'placeholder': 'seu nome'}
@@ -26,10 +33,14 @@ class ContactForms(forms.ModelForm):
             'email',
             'description',
             'category',
+            'picture',
         )
         widgets = {'first_name': forms.TextInput(attrs={
             'placeholder': 'escreva aqui'
         })}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def clean(self):
         # cleaned_data = self.cleaned_data
