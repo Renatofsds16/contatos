@@ -1,0 +1,14 @@
+{% extends 'global/base.html' %}
+{% block content %}
+  <div class="form-wrapper">
+    <h2>loguin {{ user }}</h2>
+    {% if user.is_authenticated %}
+      <p>voce fez loguin com sucesso</p>
+      <a href="{% url 'contact:logout' %}">Sair</a>
+    {% else %}
+      messages.error(request, 'usuario ou senha invalido')
+    {% endif %}
+
+    {% include 'global/partials/user_form.html' %}
+  </div>
+{% endblock content %}
