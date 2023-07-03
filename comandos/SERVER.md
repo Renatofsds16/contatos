@@ -81,6 +81,7 @@ git push agendarepo main
 No servidor
 
 ```
+# tava dando tu certo
 cd ~/agendaapp
 git pull agendarepo main
 ```
