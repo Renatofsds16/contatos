@@ -1,3 +1,5 @@
+# type: ignore
+# flake8: noqa
 """
 Django settings for project project.
 
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'CHANGE-ME'
+SECRET_KEY = 'qg{3Ml]I%~A!PQ,3xf%nPUY8~;xMO6VO~}U1"@)l(XUv3??q==K3a(gO!Gcu6v0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -128,9 +130,8 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-'''
+
 try:
     from project.local_settings import *
 except ImportError:
     ...
-    '''
