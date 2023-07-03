@@ -8,6 +8,7 @@ from django.contrib.auth import password_validation
 
 class ContactForms(forms.ModelForm):
     picture = forms.ImageField(
+        required=False,
         widget=forms.FileInput(
             attrs={
                 'accept': 'image/*',
@@ -136,6 +137,7 @@ class RegisterUpdateForm(forms.ModelForm):
             user.set_password(password)
         if commit:
             user.save()
+        return user
 
     def clean(self):
         password1 = self.cleaned_data.get('password1')

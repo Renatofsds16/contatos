@@ -4,6 +4,7 @@ from contact.forms import RegisterForm, RegisterUpdateForm
 from django.contrib import messages
 from django.contrib import auth
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 
 def register(request):
@@ -35,11 +36,13 @@ def loguin_views(request):
     )
 
 
+@login_required(login_url='contact:loguin_views')
 def logout(request):
     auth.logout(request)
     return redirect('contact:loguin_views')
 
 
+@login_required(login_url='contact:loguin_views')
 def user_update(request):
     form = RegisterUpdateForm(instance=request.user)
     if request.method != 'POST':
@@ -57,8 +60,4 @@ def user_update(request):
             {'forms': form}
         )
     form.save()
-    return render(
-            request,
-            'contact/register.html',
-            {'forms': form},
-            )
+    return redirect('contact:index')

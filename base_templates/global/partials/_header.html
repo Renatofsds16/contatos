@@ -5,10 +5,20 @@
         </a>
     </h1>
     <nav class="menu">
-        <ul class="menu-list">
-            <li class="item"><a href="{% url 'contact:create' %}" class="menu-link">Create</a></li>
-            <li class="item"><a href="" class="menu-link">Update</a></li>
-        </ul>
+        {% if user.is_authenticated %}
+            <ul class="menu-list">
+                <li class="item"><a href="{% url 'contact:create' %}" class="menu-link">Create</a></li>
+                <li class="item"><a href="{% url 'contact:user_update' %}" class="menu-link">upadate</a></li>
+                <li class="item"><a href="{% url 'contact:logout' %}" class="menu-link">logout</a></li>
+            </ul>
+        {% else %}
+            <ul class="menu-list">
+                <li class="item"><a href="{% url 'contact:loguin_views' %}" class="menu-link">login</a></li>
+                <li class="item"><a href="{% url 'contact:register' %}" class="menu-link">register</a></li>
+                <li class="item"><a href="{% url 'contact:index' %}" class="menu-link">index</a></li>
+               
+            </ul>
+        {% endif %}
     </nav>
     <div class="search">
         <form action="{% url 'contact:search' %}" method="GET">
